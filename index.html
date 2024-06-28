@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Instagram Chat</title>
+  <!-- Tailwind CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.0.2/dist/tailwind.min.css" rel="stylesheet">
+  <!-- Estilos personalizados -->
+  <link href="styles.css" rel="stylesheet">
+</head>
+<body class="font-sans antialiased bg-gray-100">
+  <div id="app" class="h-screen flex items-center justify-center">
+    <div class="w-full max-w-md">
+      <div class="bg-white rounded-lg shadow-lg overflow-hidden">
+        <div class="flex justify-between items-center border-b border-gray-300 px-4 py-3">
+          <h1 class="text-lg font-semibold text-gray-800">Instagram Chat</h1>
+          <button @click="logout" class="text-sm text-gray-600 focus:outline-none">Logout</button>
+        </div>
+        <div class="flex flex-col h-80 overflow-y-auto">
+          <!-- Chat messages will be rendered here -->
+          <div class="p-4">
+            <div v-if="messages.length === 0" class="text-center text-gray-500 py-4">No hay mensajes aún.</div>
+            <div v-else>
+              <div v-for="message in messages" :key="message.id" class="mb-4 p-3 bg-gray-200 rounded-lg flex items-center justify-between">
+                <p class="text-sm">{{ message.text }}</p>
+                <button @click="deleteMessage(message.id)" class="text-xs text-red-500">Eliminar</button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="border-t border-gray-300 px-4 py-3 flex justify-between">
+          <button @click="deleteAllMessages" class="px-4 py-2 bg-red-500 text-white rounded-lg">Eliminar Todos los Mensajes</button>
+        </div>
+        <div class="border-t border-gray-300 px-4 py-3">
+          <div class="flex items-center">
+            <input v-model="newMessage" @keyup.enter="sendMessage" type="text" placeholder="Type a message..." class="flex-1 p-2 border border-gray-300 rounded-lg mr-2 focus:outline-none">
+            <button @click="sendMessage" class="px-4 py-2 bg-blue-500 text-white rounded-lg">Send</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Vue.js -->
+  <script src="https://cdn.jsdelivr.net/npm/vue@3.0.0/dist/vue.global.prod.js"></script>
+  <!-- Axios (cargado directamente desde CDN) -->
+  <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+  <!-- Tu aplicación Vue.js -->
+  <script src="app.js"></script>
+</body>
+</html>
